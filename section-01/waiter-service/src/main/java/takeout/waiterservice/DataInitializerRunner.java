@@ -17,7 +17,15 @@ public class DataInitializerRunner implements ApplicationRunner {
         TakeOutOrder order = TakeOutOrder.builder()
                 .customer("Tony")
                 .waiter("Steve")
-                .items("hamburger")
+                .items("Hamburger")
+                .createTime(new Date())
+                .modifyTime(new Date()).build();
+        orderRepository.save(order);
+
+        order = TakeOutOrder.builder()
+                .customer("Tony")
+                .waiter("Bruce")
+                .items("Sandwich")
                 .createTime(new Date())
                 .modifyTime(new Date()).build();
         orderRepository.save(order);
