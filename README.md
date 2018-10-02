@@ -1,2 +1,8 @@
-# microservices-architecture-and-practices
-QConShanghai 2018深度培训——《微服务架构与实战》示例
+# 微服务架构与实战
+
+QConShanghai 2018深度培训第二天演示代码。
+
+## 代码说明
+
+* Section 01 - 一个最基本的微服务
+
