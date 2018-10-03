@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 @Data
@@ -19,6 +20,7 @@ import java.util.Date;
 @Builder
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler", "fieldHandler"})
 @Entity
+@XmlRootElement
 public class TakeOutOrder {
     @Id
     @GeneratedValue
