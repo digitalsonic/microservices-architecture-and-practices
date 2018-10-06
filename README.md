@@ -12,4 +12,5 @@ QConShanghai 2018深度培训第二天演示代码。
 * Section 06 - 使用Zookeeper代替Section 05的Eureka实现服务注册与发现
 * Section 07 - 演示Hystrix断路器
 * Section 08 - 使用Zookeeper作为配置中心，加载集中配置
-
+* Section 09 - 增加RabbitMQ，使用Spring Cloud Stream，新增了chef-service
+* 
