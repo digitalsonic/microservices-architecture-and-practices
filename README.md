@@ -13,4 +13,6 @@ QConShanghai 2018深度培训第二天演示代码。
 * Section 07 - 演示Hystrix断路器
 * Section 08 - 使用Zookeeper作为配置中心，加载集中配置
 * Section 09 - 增加RabbitMQ，使用Spring Cloud Stream，新增了chef-service
-* 
+* Section 10 - 演示了Spring Cloud Sleuth的使用，基于OpenZipkin实现服务追踪
+* Section 11 - 将Section 10的所有服务打包成Docker镜像，并提供DockerCompose配置
+
