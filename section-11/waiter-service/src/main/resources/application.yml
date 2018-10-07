@@ -1,0 +1,34 @@
+prefix.name: Jarvis
+
+server.port: 8080
+
+management.endpoints.web.exposure.include:
+  - health
+  - refresh
+
+spring:
+  output.ansi.enabled: ALWAYS
+
+  rabbitmq:
+    host: rabbit
+    port: 5672
+    username: guest
+    password: guest
+
+  cloud:
+    stream:
+      bindings:
+        default.binder: rabbit
+        finishedOrders.group: waiter-service
+      binders.rabbit.type: rabbit
+    zookeeper.discovery.preferIpAddress: true
+    inetutils:
+      ignoredInterfaces:
+        - docker0
+        - veth.*
+
+  sleth.sampler.probability: 1.0
+
+  zipkin:
+    baseUrl: http://zipkin:9411
+    sender.type: web

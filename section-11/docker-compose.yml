@@ -1,0 +1,61 @@
+version: '3'
+
+services: 
+  zookeeper:
+    image: zookeeper:3.5
+    expose:
+      - "2181"
+
+  rabbit:
+    image: rabbitmq:3.6-management
+    expose:
+      - "5671-5672"
+    ports:
+      - "9888:15672"
+
+  zipkin:
+    image: openzipkin/zipkin
+    expose:
+      - "9411"
+    ports:
+      - "9411:9411"
+
+  chef-service:
+    image: takeout/chef-service
+    restart: always
+    depends_on:
+      - zookeeper
+      - rabbit
+      - zipkin
+    links:
+      - zookeeper
+      - rabbit
+      - zipkin
+
+  customer-service:
+    image: takeout/customer-service
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - waiter-service
+      - chef-service
+    links:
+      - zookeeper
+      - rabbit
+      - zipkin
+
+  waiter-service:
+    image: takeout/waiter-service
+    restart: always
+    expose:
+      - "8080"
+    depends_on:
+      - zookeeper
+      - rabbit
+      - zipkin
+    links:
+      - zookeeper
+      - rabbit
+      - zipkin

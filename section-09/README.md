@@ -5,5 +5,5 @@
 需要在本地启动一个RabbitMQ：
 
 ```
-docker run -d --hostname my-rabbit --name some-rabbit -p 8080:15672 -p 5672:5672 rabbitmq:3.6-management
+docker run -d --hostname my-rabbit --name some-rabbit -p 9888:15672 -p 5672:5672 rabbitmq:3.6-management
 ```

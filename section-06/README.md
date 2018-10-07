@@ -5,6 +5,6 @@
 使用Docker在本地启动一个Zookeeper：
 
 ```
-docker pull zookeeper
-docker run --name zookeeper -p 2181:2181 -d zookeeper
+docker pull zookeeper:3.5
+docker run --name zookeeper -p 2181:2181 -d zookeeper:3.5
 ```
