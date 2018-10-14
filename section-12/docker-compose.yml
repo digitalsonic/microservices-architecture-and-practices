@@ -1,0 +1,20 @@
+version: '3'
+
+services: 
+  customer-service:
+    image: registry.cn-huhehaote.aliyuncs.com/digitalsonic/customer-service
+    environment:
+      - WAITER_URL=http://waiter-service:8080
+    expose:
+      - "7080"
+    ports:
+      - "7080:7080"
+    depends_on:
+      - waiter-service
+    links:
+      - waiter-service
+
+  waiter-service:
+    image: registry.cn-huhehaote.aliyuncs.com/digitalsonic/waiter-service
+    expose:
+      - "8080"

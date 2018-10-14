@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: waiter
+spec:
+  selector:
+    app: waiter-service
+  ports:
+  - name: http
+    port: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer
+spec:
+  selector:
+    app: customer-service
+  ports:
+  - name: http
+    port: 7080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: waiter-service
+  labels:
+    app: waiter-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: waiter-service
+  template:
+    metadata:
+      labels:
+        app: waiter-service
+    spec:
+      containers:
+      - name: waiter-service
+        image: registry-vpc.cn-huhehaote.aliyuncs.com/digitalsonic/waiter-service
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: digitalsonic
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-service
+  labels:
+    app: customer-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: customer-service
+  template:
+    metadata:
+      labels:
+        app: customer-service
+    spec:
+      containers:
+      - name: customer-service
+        image: registry-vpc.cn-huhehaote.aliyuncs.com/digitalsonic/customer-service
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 7080
+      imagePullSecrets:
+      - name: digitalsonic
+
