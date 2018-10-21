@@ -22,7 +22,15 @@ kubectl create -f takeout-minikube.yml
 kubectl create -f takeout-aliyun.yml
 ```
 
-在阿里云上如果部署了istio，可以用下面的命令开启Grafana：
+在阿里云上如果部署了Istio，先设置自动注入SideCar：
+
+```
+kubectl label namespace default istio-injection=enabled
+```
+
+在`istio`目录中有一些Istio的演示，先运行`kubectl create -f istio-destination.yml`创建Destination，随后再运行其他的Yaml。
+
+可以用下面的命令开启Grafana，观察服务的调用情况：
 ```
 kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000 &
 ```

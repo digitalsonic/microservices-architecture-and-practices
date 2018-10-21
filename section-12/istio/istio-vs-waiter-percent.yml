@@ -1,0 +1,29 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: customer
+spec:
+  hosts:
+  - customer
+  http:
+  - route:
+    - destination:
+        host: customer
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: waiter
+spec:
+  hosts:
+  - waiter
+  http:
+  - route:
+    - destination:
+        host: waiter
+        subset: v1
+      weight: 10
+    - destination:
+        host: waiter
+        subset: v2
+      weight: 90

@@ -9,6 +9,54 @@ spec:
   - name: http
     port: 8080
 ---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: waiter-service-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: waiter-service
+        version: v1
+    spec:
+      containers:
+      - name: waiter-service
+        image: registry-vpc.cn-huhehaote.aliyuncs.com/digitalsonic/waiter-service
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        - name: WAITER_NAME
+          value: "Mark I"
+      imagePullSecrets:
+      - name: digitalsonic
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: waiter-service-v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: waiter-service
+        version: v2
+    spec:
+      containers:
+      - name: waiter-service
+        image: registry-vpc.cn-huhehaote.aliyuncs.com/digitalsonic/waiter-service
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        - name: WAITER_NAME
+          value: "Mark II"
+      imagePullSecrets:
+      - name: digitalsonic
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -20,46 +68,17 @@ spec:
   - name: http
     port: 7080
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: waiter-service
-  labels:
-    app: waiter-service
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: waiter-service
-  template:
-    metadata:
-      labels:
-        app: waiter-service
-    spec:
-      containers:
-      - name: waiter-service
-        image: registry-vpc.cn-huhehaote.aliyuncs.com/digitalsonic/waiter-service
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8080
-      imagePullSecrets:
-      - name: digitalsonic
----
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: customer-service
-  labels:
-    app: customer-service
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: customer-service
   template:
     metadata:
       labels:
         app: customer-service
+        version: v1
     spec:
       containers:
       - name: customer-service
